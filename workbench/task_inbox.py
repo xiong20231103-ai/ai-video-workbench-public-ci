@@ -940,6 +940,43 @@ def cancel_imported_task(
     return cancelled
 
 
+REPLENISHMENT_INHERITED_FIELDS = ("runGroupId", "batchKind", "selectedProjects", "batchSequence", "batchSize")
+
+
+def inherit_replenishment_identity(payload: dict[str, Any], statuses: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Fill a replenishment child's blank run identity from its parent record.
+
+    Children admitted before PR #38 carried an empty runGroupId and no parent
+    batch id, so the download bridge and Dashboard saw an unbound one-item
+    transport batch. Only blank fields are filled and the child's own
+    transport batchId is kept; a conflicting non-blank value is left alone
+    and reported for manual review instead of being overwritten.
+    """
+    child = dict(payload)
+    parent_id = str(child.get("replenishForTaskId") or "").strip()
+    if not parent_id:
+        return child
+    items = (statuses if statuses is not None else load_project_download_statuses()).get("items")
+    parent = items.get(parent_id) if isinstance(items, dict) else None
+    if not isinstance(parent, dict):
+        return child
+    conflicts = []
+    pairs = [(name, name) for name in REPLENISHMENT_INHERITED_FIELDS]
+    pairs.append(("replenishmentParentBatchId", "batchId"))
+    for field, parent_field in pairs:
+        value = parent.get(parent_field)
+        if value in (None, "", []):
+            continue
+        current = child.get(field)
+        if current in (None, "", []):
+            child[field] = value
+        elif current != value and field in {"runGroupId", "replenishmentParentBatchId"}:
+            conflicts.append(field)
+    if conflicts:
+        child["identityConflicts"] = conflicts
+    return child
+
+
 def mark_imported(
     path: Path,
     payload: dict[str, Any],

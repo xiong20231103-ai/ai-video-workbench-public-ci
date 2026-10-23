@@ -53,6 +53,7 @@ from task_inbox import (
     load_project_download_statuses,
     load_task_record,
     mark_replenishment_merged,
+    inherit_replenishment_identity,
     mark_imported,
     remove_project_download_status,
     resolve_task_audio_directory,
@@ -7219,6 +7220,12 @@ class Workbench(tk.Tk):
         self.auto_subtitle.set(bool(task.get("subtitle_enabled", True)))
         self.vars["download_workers"].set(str(self._integer(task.get("download_workers"), 2)))
         self.vars["tikhub_downloads"].set(str(batch_directory))
+        if task.get("replenishForTaskId"):
+            task = inherit_replenishment_identity(task)
+            if task.get("identityConflicts"):
+                self.write_log(
+                    "补链子任务身份与父项目不一致，已保留子任务原值待人工核对："
+                    + "、".join(task["identityConflicts"]))
         self.active_external_task = dict(task)
         self.active_external_task["step1DownloadDirectory"] = str(batch_directory)
         task["step1DownloadDirectory"] = str(batch_directory)
@@ -9611,7 +9618,6 @@ class Workbench(tk.Tk):
         self.save_settings()
         self.save_download_session()
         self._recovery_executor.shutdown(wait=False, cancel_futures=True)
-        self.write_log("工作台窗口已被关闭，正在退出")
         self.destroy()
 
 
@@ -9622,16 +9628,8 @@ if __name__ == "__main__":
         # though it never acquired the Workbench lease.  Exit immediately so
         # process-based health checks also see exactly one instance.
         os._exit(0)
-    import process_forensics
-    record_uncaught = process_forensics.install(WORKBENCH_LOG_DIR, append_workbench_log)
-    abnormal_exit = process_forensics.previous_abnormal_exit(
-        WORKBENCH_READY_FILE, os.getpid(), _pid_is_alive)
-    if abnormal_exit:
-        append_workbench_log(abnormal_exit)
     try:
         app = Workbench()
-        app.report_callback_exception = (
-            lambda exc_type, exc, tb: record_uncaught("界面回调未捕获异常", exc_type, exc, tb))
         publish_workbench_ready()
 
         def _heartbeat():
@@ -9647,4 +9645,3 @@ if __name__ == "__main__":
     finally:
         remove_workbench_ready()
         release_workbench_instance()
-        append_workbench_log("工作台进程已正常退出")
