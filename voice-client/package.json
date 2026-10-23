@@ -1,0 +1,19 @@
+{
+  "name": "batch-voice-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "client": "node src/clientServer.js",
+    "desktop:build": "powershell -ExecutionPolicy Bypass -File desktop/build.ps1",
+    "start": "node src/runBatch.js",
+    "dry-run": "node src/runBatch.js --dry-run",
+    "debug": "node src/runBatch.js --headed --slow 250",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.6",
+    "dotenv": "^16.4.5",
+    "playwright": "^1.45.0"
+  }
+}

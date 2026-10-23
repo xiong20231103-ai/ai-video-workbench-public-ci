@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Fish Audio Batch Bridge",
+  "version": "1.3.47",
+  "description": "Local batch voice bridge for Fish Audio text to speech.",
+  "permissions": ["downloads", "tabs", "debugger"],
+  "host_permissions": [
+    "https://fish.audio/*",
+    "https://*.fish.audio/*",
+    "http://127.0.0.1:5178/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://fish.audio/*"],
+      "js": ["active-voice.js", "catalog-selectors.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

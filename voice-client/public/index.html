@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>批量语音客户端</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>批量语音客户端</h1>
+          <p>管理任务表、配置目标网页并启动 Playwright 批量生成。</p>
+        </div>
+        <div class="actions">
+          <button id="saveAllBtn">保存配置和任务</button>
+          <button id="dryRunBtn" class="secondary">预览任务</button>
+          <button id="startBtn" class="primary">开始生成</button>
+          <button id="stopBtn" class="danger">停止</button>
+        </div>
+      </header>
+
+      <section class="grid">
+        <form class="panel" id="settingsForm">
+          <h2>配置</h2>
+          <label>目标网页<input name="targetUrl" placeholder="https://example.com/voice"></label>
+          <div class="row">
+            <label>浏览器模式<select name="headless"><option value="false">显示浏览器</option><option value="true">后台运行</option></select></label>
+            <label>慢动作毫秒<input name="slowMoMs" type="number" min="0" step="50"></label>
+          </div>
+          <div class="row">
+            <label>任务文件<input name="taskFile"></label>
+            <label>下载目录<input name="downloadDir"></label>
+          </div>
+          <label>日志目录<input name="logDir"></label>
+        </form>
+
+        <section class="panel">
+          <h2>任务表 CSV</h2>
+          <textarea id="tasksCsv" spellcheck="false"></textarea>
+        </section>
+      </section>
+
+      <section class="panel logPanel">
+        <div class="logHeader"><h2>运行日志</h2><span id="jobStatus">未运行</span></div>
+        <pre id="jobLog"></pre>
+      </section>
+    </main>
+    <script src="/assets/app.js" type="module"></script>
+  </body>
+</html>

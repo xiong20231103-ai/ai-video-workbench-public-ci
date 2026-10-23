@@ -1,0 +1,16 @@
+node_modules/
+.browsers/
+runtime/
+.env
+downloads/*
+!downloads/.gitkeep
+log/
+logs/*
+!logs/.gitkeep
+release/
+data/chrome-profile/
+data/copy_usage.json
+data/project_output_dirs.csv
+*.running-backup.exe
+playwright-report/
+test-results/

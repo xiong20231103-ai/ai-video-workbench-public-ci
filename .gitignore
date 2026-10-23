@@ -1,0 +1,5 @@
+.test-deps/
+.tmp-test/
+__pycache__/
+*.pyc
+node_modules/

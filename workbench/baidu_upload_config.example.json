@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "app_name": "AI视频生产线",
+  "records_root": "./交接记录",
+  "state_file": "./handoff/upload/upload_status.json",
+  "scan_interval_seconds": 5,
+  "stable_seconds": 30,
+  "stable_checks": 3,
+  "retry_base_seconds": 30,
+  "retry_max_seconds": 1800,
+  "request_timeout_seconds": 90
+}

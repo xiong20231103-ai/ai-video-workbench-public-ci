@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "audioRoots": {
+    "ProjectA": "E:\\音频\\ProjectA音频",
+    "ProjectC": "E:\\音频\\ProjectC音频",
+    "ProjectD": "E:\\音频\\ProjectD音频",
+    "SPC地板": "E:\\音频\\spc音频\\地板",
+    "SPC墙板": "E:\\音频\\spc音频\\墙板",
+    "ProjectB": "E:\\音频\\ProjectB音频"
+  }
+}

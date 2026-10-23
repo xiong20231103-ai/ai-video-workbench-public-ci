@@ -1,0 +1,37 @@
+name: Sanitized workbench CI
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --target .test-deps fastapi uvicorn httpx psutil pillow
+      - shell: powershell
+        run: |
+          $env:PYTHONPATH="$PWD\.test-deps"
+          $env:PYTHONIOENCODING="utf-8"
+          New-Item -ItemType Directory -Force .tmp-test | Out-Null
+          $env:TEMP="$PWD\.tmp-test"; $env:TMP=$env:TEMP
+          Push-Location workbench; python -B -m unittest discover -p "test_*.py"; if ($LASTEXITCODE) { exit 1 }; Pop-Location
+          python -B tools/run_submitter_tests.py; if ($LASTEXITCODE) { exit 1 }
+          python -B tools/run_replenishment_tests.py; if ($LASTEXITCODE) { exit 1 }
+          Push-Location video-stitcher; python -B -m unittest discover -p "test_*.py"; if ($LASTEXITCODE) { exit 1 }; Pop-Location
+          Push-Location voice-client/weekly-copy; python -B -m unittest discover -p "test_*.py"; if ($LASTEXITCODE) { exit 1 }; Pop-Location
+  node:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - shell: powershell
+        run: |
+          Push-Location voice-client; npm ci --no-audit --no-fund; if ($LASTEXITCODE) { exit 1 }
+          node --test; if ($LASTEXITCODE) { exit 1 }

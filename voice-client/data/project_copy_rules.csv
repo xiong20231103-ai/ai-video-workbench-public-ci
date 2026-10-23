@@ -1,0 +1,8 @@
+project,mode,materials
+ProjectB,rotation,净白板|碳岩板|金属板|镜面板|木饰面|PU石|PU软石
+ProjectA,rotation,净白板|碳岩板|金属板|镜面板|木饰面|PU石|PU软石
+ProjectC,rotation,净白板|碳岩板|金属板|镜面板|木饰面|PU石|PU软石
+ProjectD,rotation,净白板|碳岩板|金属板|镜面板|木饰面|PU石|PU软石
+SPC地板,fixed,塑木地板
+SPC墙板,fixed,晶岩墙板
+ExampleBrand,fixed,清淤泵|潜污泵|离心泵|轴流泵|粉碎格栅|一体化预制泵站|大型泵站|MaterialPump

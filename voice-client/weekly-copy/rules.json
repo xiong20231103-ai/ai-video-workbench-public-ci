@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "columns": [
+    "source",
+    "material",
+    "language",
+    "copyId",
+    "title",
+    "text"
+  ],
+  "perWeekPerMaterialLanguage": 6,
+  "baseLanguages": [
+    "英语",
+    "德语",
+    "西班牙语",
+    "法语",
+    "印尼语",
+    "意大利语",
+    "葡萄牙语",
+    "土耳其语",
+    "俄语"
+  ],
+  "scopedLanguages": {
+    "韩语": [
+      "净白板",
+      "碳岩板",
+      "金属板",
+      "镜面板",
+      "木饰面",
+      "PU石",
+      "PU软石"
+    ]
+  },
+  "fixedEndings": {
+    "英语": "If you want samples for testing, please leave your WhatsApp and Email.",
+    "德语": "Wenn Sie Muster zum Testen möchten, hinterlassen Sie bitte Ihre WhatsApp-Nummer und E-Mail-Adresse.",
+    "西班牙语": "Si quieres muestras para hacer pruebas, deja tu WhatsApp y Email.",
+    "法语": "Si vous souhaitez des échantillons pour les tester, veuillez laisser votre WhatsApp et votre Email.",
+    "印尼语": "Jika Anda ingin sampel untuk diuji, silakan tinggalkan WhatsApp dan Email Anda.",
+    "意大利语": "Se vuoi dei campioni da testare, lascia il tuo WhatsApp e la tua Email.",
+    "葡萄牙语": "Se você quer amostras para testar, deixe seu WhatsApp e Email.",
+    "土耳其语": "Test etmek için numune istiyorsanız, lütfen WhatsApp ve Email bilginizi bırakın.",
+    "俄语": "Если хотите получить образцы для тестирования, оставьте свой WhatsApp и Email.",
+    "韩语": "샘플 테스트를 원하시면 WhatsApp과 이메일을 남겨 주세요."
+  },
+  "materials": {
+    "净白板": {
+      "en": "White Decorative Board",
+      "compareTo": "ceramic tile",
+      "look": "clean, bright, ceramic-style finish",
+      "benefits": [
+        "easier to install than tiles"
+      ],
+      "exclusiveFacts": []
+    },
+    "碳岩板": {
+      "en": "Carbon Crystal Board",
+      "compareTo": "marble",
+      "look": "luxury marble-look stone pattern",
+      "benefits": [
+        "lighter and easier to install than stone"
+      ],
+      "exclusiveFacts": []
+    },
+    "金属板": {
+      "en": "Metal Panel",
+      "compareTo": "",
+      "look": "brushed metal texture, modern, premium",
+      "benefits": [
+        "strong visual impact",
+        "design upgrade for interiors"
+      ],
+      "exclusiveFacts": []
+    },
+    "镜面板": {
+      "en": "Mirror Panel",
+      "compareTo": "glass mirror",
+      "look": "reflective, makes rooms feel bigger and brighter",
+      "benefits": [
+        "not easy to break",
+        "safer than fragile glass"
+      ],
+      "exclusiveFacts": []
+    },
+    "木饰面": {
+      "en": "Wood Veneer",
+      "compareTo": "solid wood",
+      "look": "natural wood grain, warm and elegant",
+      "benefits": [
+        "less complicated than traditional wood finishes"
+      ],
+      "exclusiveFacts": []
+    },
+    "PU石": {
+      "en": "PU Stone",
+      "compareTo": "real stone",
+      "look": "natural stone texture",
+      "benefits": [
+        "lightweight",
+        "easier to install"
+      ],
+      "exclusiveFacts": []
+    },
+    "PU软石": {
+      "en": "PU Flexible Stone",
+      "compareTo": "real stone",
+      "look": "natural stone-style surface",
+      "benefits": [
+        "can bend",
+        "fits curved walls and special shapes"
+      ],
+      "exclusiveFacts": []
+    },
+    "塑木地板": {
+      "en": "Plastic Wood Flooring",
+      "compareTo": "real wood flooring",
+      "look": "realistic wood grain; also marble and multiple colors",
+      "benefits": [
+        "waterproof",
+        "moisture-proof",
+        "maintenance-free"
+      ],
+      "exclusiveFacts": [
+        "service life of more than 20 years"
+      ]
+    },
+    "晶岩墙板": {
+      "en": "Crystal Rock Wall Panel",
+      "compareTo": "stone / marble",
+      "look": "luxury refined marble-look texture",
+      "benefits": [
+        "easier installation"
+      ],
+      "exclusiveFacts": [
+        "suitable for hotels and commercial spaces"
+      ]
+    }
+  },
+  "hooks": {
+    "A": "误认反转。可换说法：Most people think this is real [compareTo], but it isn't. / This looks like [compareTo], but [benefit]. / It looks like [compareTo], but it is made for [benefit].",
+    "B": "反问对比。可换说法：Why use [compareTo] if this [benefit]? / Why are more buyers choosing this instead of [compareTo]? / Why do more projects choose this over [compareTo]?",
+    "C": "早知道。可换说法：If I knew this [product type] earlier, I would skip [compareTo]. / If I had known about this [product type] earlier, I would have skipped more troublesome materials.",
+    "D": "条件引导。可换说法：If you want [result], watch this. / If you like [style], check this first. / If you need [result], this is worth seeing.",
+    "E": "效果断言。可换说法：[texture] makes the [wall/floor] look instantly more expensive. / This finish can change the whole feeling of a space. / [texture] can change the whole mood of a room.",
+    "F": "好奇/不可能。可换说法：Have you ever seen a [look] that can [unexpected benefit]? / Traditional [compareTo] cannot do this. / [unexpected benefit], but it still looks like [look].（不能写成 real stone / glass mirror / solid wood that…，产品不是传统材料）",
+    "G": "直接给结果。可换说法：You can get [effect] without [hassle]. / [effect], but [safer/lighter/easier]. / This is how you get [effect] more easily."
+  },
+  "englishWords": {
+    "min": 30,
+    "max": 70
+  },
+  "otherLanguageLengthRatio": {
+    "min": 0.6,
+    "max": 2.2
+  },
+  "bannedEnglish": [
+    "best",
+    "No.1",
+    "number one",
+    "cheapest",
+    "guarantee",
+    "guaranteed",
+    "100%",
+    "lifetime",
+    "fireproof",
+    "eco-friendly",
+    "formaldehyde",
+    "certified",
+    "price",
+    "discount",
+    "free shipping"
+  ],
+  "productIntroByLanguage": {
+    "净白板": {
+      "德语": "Das ist unser Weißes Dekorpaneel.",
+      "西班牙语": "Este es nuestro Panel decorativo blanco.",
+      "法语": "Voici notre Panneau décoratif blanc.",
+      "印尼语": "Ini adalah Papan Dekoratif Putih kami.",
+      "意大利语": "Questo è il nostro Pannello decorativo bianco.",
+      "葡萄牙语": "Este é o nosso Painel Decorativo Branco.",
+      "土耳其语": "Bu bizim Beyaz Dekoratif Panelimiz.",
+      "俄语": "Это наша Белая декоративная панель.",
+      "韩语": "이것은 저희 화이트 장식 패널입니다.",
+      "英语": "This is our White Decorative Board."
+    },
+    "碳岩板": {
+      "德语": "Das ist unser Carbon Crystal Board.",
+      "西班牙语": "Este es nuestro Panel Carbon Crystal.",
+      "法语": "Voici notre Panneau Carbon Crystal.",
+      "印尼语": "Ini adalah Carbon Crystal Board kami.",
+      "意大利语": "Questo è il nostro Pannello Carbon Crystal.",
+      "葡萄牙语": "Este é o nosso Painel Carbon Crystal.",
+      "土耳其语": "Bu bizim Carbon Crystal Panelimiz.",
+      "俄语": "Это наша Панель Carbon Crystal.",
+      "韩语": "이것은 저희 카본 크리스털 패널입니다.",
+      "英语": "This is our Carbon Crystal Board."
+    },
+    "金属板": {
+      "德语": "Das ist unser Metallpaneel mit gebürsteter Oberflächenstruktur.",
+      "西班牙语": "Este es nuestro Panel metálico con textura de superficie cepillada.",
+      "法语": "Voici notre Panneau métallique avec une texture de surface brossée.",
+      "印尼语": "Ini adalah Panel Metal kami dengan tekstur permukaan brushed.",
+      "意大利语": "Questo è il nostro Pannello metallico con texture superficiale spazzolata.",
+      "葡萄牙语": "Este é o nosso Painel Metálico com textura escovada.",
+      "土耳其语": "Bu, fırçalanmış yüzey dokusuna sahip Metal Panelimizdir.",
+      "俄语": "Это наша Металлическая панель с брашированной поверхностью.",
+      "韩语": "이것은 저희 메탈 패널입니다.",
+      "英语": "This is our Metal Panel."
+    },
+    "镜面板": {
+      "德语": "Das ist unser Spiegelpaneel.",
+      "西班牙语": "Este es nuestro Panel espejo.",
+      "法语": "Voici notre Panneau miroir.",
+      "印尼语": "Ini adalah Panel Cermin kami.",
+      "意大利语": "Questo è il nostro Pannello specchio.",
+      "葡萄牙语": "Este é o nosso Painel Espelhado.",
+      "土耳其语": "Bu bizim Ayna Panelimiz.",
+      "俄语": "Это наша Зеркальная панель.",
+      "韩语": "이것은 저희 미러 패널입니다.",
+      "英语": "This is our Mirror Panel."
+    },
+    "木饰面": {
+      "德语": "Das ist unser Holzfurnier-Paneel.",
+      "西班牙语": "Este es nuestro Panel de madera.",
+      "法语": "Voici notre Panneau placage bois.",
+      "印尼语": "Ini adalah Panel Veneer Kayu kami.",
+      "意大利语": "Questo è il nostro Pannello effetto legno.",
+      "葡萄牙语": "Este é o nosso Painel Amadeirado.",
+      "土耳其语": "Bu bizim Ahşap Kaplama Panelimiz.",
+      "俄语": "Это наша Панель под дерево.",
+      "韩语": "이것은 저희 우드 베니어 패널입니다.",
+      "英语": "This is our Wood Veneer."
+    },
+    "PU石": {
+      "德语": "Das ist unser PU-Stein.",
+      "西班牙语": "Esta es nuestra Piedra PU.",
+      "法语": "Voici notre Pierre PU.",
+      "印尼语": "Ini adalah PU Stone kami.",
+      "意大利语": "Questa è la nostra Pietra PU.",
+      "葡萄牙语": "Esta é a nossa Pedra PU.",
+      "土耳其语": "Bu bizim PU Taşımız.",
+      "俄语": "Это наш PU-камень.",
+      "韩语": "이것은 저희 PU 스톤입니다.",
+      "英语": "This is our PU Stone."
+    },
+    "PU软石": {
+      "德语": "Das ist unser flexibler PU-Stein.",
+      "西班牙语": "Esta es nuestra Piedra flexible de PU.",
+      "法语": "Voici notre Pierre flexible PU.",
+      "印尼语": "Ini adalah PU Flexible Stone kami.",
+      "意大利语": "Questa è la nostra Pietra flessibile PU.",
+      "葡萄牙语": "Esta é a nossa Pedra Flexível PU.",
+      "土耳其语": "Bu bizim Esnek PU Taşımız.",
+      "俄语": "Это наш Гибкий PU-камень.",
+      "韩语": "이것은 저희 PU 소프트 스톤입니다.",
+      "英语": "This is our PU Flexible Stone."
+    },
+    "塑木地板": {
+      "德语": "Das ist unser Kunststoff-Holzboden.",
+      "西班牙语": "Este es nuestro Suelo de madera plástica.",
+      "法语": "Voici notre Revêtement bois plastique.",
+      "印尼语": "Ini adalah Lantai Kayu Plastik kami.",
+      "意大利语": "Questo è il nostro Pavimento in legno plastico.",
+      "葡萄牙语": "Este é o nosso Piso de madeira plástica.",
+      "土耳其语": "Bu bizim Plastik Ahşap Zemin Kaplamamız.",
+      "俄语": "Это наш Пластиково-древесный пол.",
+      "英语": "This is our Plastic Wood Flooring."
+    },
+    "晶岩墙板": {
+      "德语": "Das ist unser Crystal-Rock-Wandpaneel.",
+      "西班牙语": "Este es nuestro Panel mural Crystal Rock.",
+      "法语": "Voici notre Panneau mural Crystal Rock.",
+      "印尼语": "Ini adalah Panel Dinding Crystal Rock kami.",
+      "意大利语": "Questo è il nostro Pannello da parete Crystal Rock.",
+      "葡萄牙语": "Este é o nosso Painel de parede Crystal Rock.",
+      "土耳其语": "Bu bizim Crystal Rock Duvar Panelimiz.",
+      "俄语": "Это наша Стеновая панель Crystal Rock.",
+      "英语": "This is our Crystal Rock Wall Panel."
+    }
+  },
+  "allowedScenes": {
+    "default": [
+      "interior walls",
+      "homes",
+      "offices",
+      "renovation projects",
+      "modern interiors"
+    ],
+    "塑木地板": [
+      "indoor floors",
+      "homes",
+      "commercial spaces"
+    ],
+    "晶岩墙板": [
+      "hotels",
+      "commercial spaces",
+      "modern interiors"
+    ]
+  },
+  "forbiddenClaims": {
+    "塑木地板": [
+      "outdoor",
+      "outside",
+      "garden",
+      "balcony",
+      "terrace",
+      "deck"
+    ]
+  },
+  "repetition": {
+    "maxSameSentencePerWeek": 2,
+    "maxSameHookOpeningAcrossMaterials": 4
+  },
+  "exclusiveWords": {
+    "PU软石": [
+      "bend",
+      "bends",
+      "bendable",
+      "bending",
+      "flexible",
+      "flexibility",
+      "curved",
+      "curves"
+    ],
+    "塑木地板": [
+      "waterproof",
+      "moisture-proof",
+      "maintenance-free"
+    ]
+  }
+}
