@@ -317,6 +317,46 @@ class RecoveryControlTests(unittest.TestCase):
         self.assertEqual(saved["state"], "delivered")
         self.assertEqual(saved["requeuedAfterCommandId"], old_command["commandId"])
 
+    def _orphan_setup(self, command_state, owner):
+        # 10-23: step12 resume completed at 00:49, its owner died at 00:52 and
+        # the mailbox stayed "accepted", so the 08:22 request was never delivered.
+        state = self.control.status()
+        state["commands"]["continue-af9212dd0308"] = {
+            "commandId": "continue-af9212dd0308", "taskId": "task-1", "step": "step12",
+            "stableRecoveryKey": "v1|step12|old", "state": command_state,
+        }
+        self.control.state_path.write_text(json.dumps(state), encoding="utf-8")
+        self.control.mailbox_path.write_text(json.dumps({
+            "commandId": "continue-af9212dd0308", "taskId": "task-1", "state": "accepted",
+            "phase": "executing_task_recovery", "ownerProcessIdentity": owner,
+        }), encoding="utf-8")
+        self.control.enqueue_request({
+            "commandId": "continue-fc09106e185e", "taskId": "task-1", "step": "step3",
+            "stableRecoveryKey": "v5|step3|new",
+            "requestedAt": datetime.now(timezone.utc).isoformat(),
+        })
+
+    def test_completed_command_with_exited_owner_releases_mailbox(self):
+        dead_owner = {"pid": 14028, "processStartTime": 1792628420.1456947}
+        self._orphan_setup("completed", dead_owner)
+        with patch("recovery_control.observe_process_identity", return_value="exited"):
+            delivered = self.control.deliver_next_request()
+        self.assertEqual(delivered["commandId"], "continue-fc09106e185e")
+        mailbox = json.loads(self.control.mailbox_path.read_text(encoding="utf-8"))
+        self.assertEqual(mailbox["commandId"], "continue-fc09106e185e")
+
+    def test_orphan_close_requires_terminal_command_and_proved_exit(self):
+        cases = (("accepted", "exited"), ("completed", "matched_alive"), ("completed", "unverifiable"))
+        for command_state, observation in cases:
+            with self.subTest(command_state=command_state, owner=observation):
+                self.setUp()
+                self._orphan_setup(command_state, {"pid": 14028, "processStartTime": 1.0})
+                with patch("recovery_control.observe_process_identity", return_value=observation):
+                    self.assertIsNone(self.control.deliver_next_request())
+                mailbox = json.loads(self.control.mailbox_path.read_text(encoding="utf-8"))
+                self.assertEqual((mailbox["commandId"], mailbox["state"]),
+                                 ("continue-af9212dd0308", "accepted"))
+
     def test_process_identity_uses_start_time_and_rejects_missing_identity(self):
         current = capture_process_identity()
         self.assertEqual(observe_process_identity(current), "matched_alive")

@@ -542,6 +542,29 @@ class RecoveryControl:
             _write_json(self.mailbox_path, mailbox)
             return current
 
+    def _close_orphaned_mailbox(self, state: dict[str, Any], mailbox: dict[str, Any]) -> bool:
+        """Close an in-flight mailbox whose command already ended and whose owner exited.
+
+        A Step 1/2 resume that reaches Step 3 keeps its mailbox for the later
+        steps; when the owning Workbench then dies (2026-10-23 00:52 power-off)
+        nobody closes it and every later Safe Continue is skipped forever.
+        Only a terminal authority record plus a proved-exited owner qualify;
+        an unverifiable or still-running owner keeps the mailbox untouched.
+        Caller holds the lock.
+        """
+        command = state['commands'].get(str(mailbox.get('commandId') or ''))
+        if not isinstance(command, dict) or command.get('state') not in TERMINAL_COMMAND_STATES:
+            return False
+        owner = mailbox.get('ownerProcessIdentity') or command.get('consumerProcessIdentity')
+        if observe_process_identity(owner) not in {'exited', 'pid_reused'}:
+            return False
+        now = _now()
+        closed = {**mailbox, 'state': command['state'], 'phase': 'closed_after_owner_exit',
+                  'message': '持有进程已退出且命令已结束，交接邮箱自动收口',
+                  'finishedAt': now, 'lastHeartbeat': now}
+        _write_json(self.mailbox_path, closed)
+        return True
+
     def deliver_next_request(self) -> dict[str, Any] | None:
         """Deliver transport only when authority and mailbox are unoccupied."""
         with _os_lock(self.lock_path):
@@ -656,7 +679,8 @@ class RecoveryControl:
             if self.mailbox_path.exists():
                 existing = json.loads(self.mailbox_path.read_text(encoding='utf-8-sig'))
                 if existing.get('state') in {'requested', 'accepted', 'running', 'recovering', 'executing'}:
-                    return None
+                    if not self._close_orphaned_mailbox(state, existing):
+                        return None
             ordered_candidates = []
             if selected_pair is not None:
                 ordered_candidates.append(selected_pair)
