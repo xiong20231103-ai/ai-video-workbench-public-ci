@@ -124,7 +124,8 @@ class AutomaticRecoveryPolicyTests(unittest.TestCase):
         }
         app = object.__new__(workbench.Workbench)
         app.active_external_task = task
-        app._voice_client_path = lambda: Path(r"E:\Backup\Documents\ai-video-workbench-suite\voice-client\BatchVoiceClient.exe")
+        # Repo-relative so the checked-in voice rules are found on any machine.
+        app._voice_client_path = lambda: Path(__file__).resolve().parents[1] / "voice-client" / "BatchVoiceClient.exe"
         app.capcut_store = SimpleNamespace(load_date=lambda _date: {"tasks": []})
         with patch.object(workbench, "load_project_download_statuses", return_value={"items": {}}):
             identity = app._continue_recovery_identity(task)
